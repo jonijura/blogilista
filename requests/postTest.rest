@@ -2,7 +2,7 @@ POST http://localhost:3003/api/blogs
 content-type: application/json
 
 {
-    "title": "Autoblogi4",
+    "title": "Autoblogid4f",
     "author": "Matti traktorit",
     "url": "www.matinTraktori.com",
     "likes": "232"
