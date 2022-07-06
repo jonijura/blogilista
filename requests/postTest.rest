@@ -1,9 +1,11 @@
 POST http://localhost:3003/api/blogs
 content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imtha2V0c3UiLCJpZCI6IjYyYzViMDg3YTUyMDEwNTY4ODI4ZWFlNyIsImlhdCI6MTY1NzEyMzkxNn0.QMQNmj3UhWlgD181DmfEp9EG5NDpxO_Xnmd6LKXnp1k
 
 {
-    "title": "Autobloats",
-    "author": "Matti traktorit",
+    "title": "Ateehee2",
+    "author": "Matti traktorit2",
     "url": "www.matinTraktori.com",
-    "likes": "232"
+    "likes": "232",
+    "userId": "62c5b087a52010568828eae7"
 }
