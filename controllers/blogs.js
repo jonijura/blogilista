@@ -1,15 +1,9 @@
 const blogsRouter = require('express').Router()
 const jwt = require('jsonwebtoken')
+const { isArguments } = require('lodash')
 const Blog = require('../models/blog')
 const User = require('../models/user')
 
-const getTokenFrom = (request) => {
-  const authorization = request.get('authorization')
-  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-    return authorization.substring(7)
-  }
-  return null
-}
 
 blogsRouter.get('/', async (request, response) => {
   const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
@@ -18,12 +12,12 @@ blogsRouter.get('/', async (request, response) => {
 
 blogsRouter.post('/', async (request, response) => {
   const body = request.body
-  const token = getTokenFrom(request)
-  const decodeToken = jwt.verify(token, process.env.SECRET)
-  if(!token || !decodeToken.id) {
-    return response.status(401).json({ error: 'token missing or invalid' })
-  }
+  if(!request.token) return response.status(401).json({ error: 'token missing' })
+  decodeToken = jwt.verify(request.token, process.env.SECRET)
   const user = await User.findById(request.body.userId)
+  if(decodeToken.id!==user._id.toString()) 
+  return response.status(401).json({ error: `Token Id ${decodeToken.id}and userId ${user._id.toString()} do not match??` })
+
   const blog = new Blog({
     title: body.title,
     author: body.author,
@@ -38,6 +32,13 @@ blogsRouter.post('/', async (request, response) => {
 })
 
 blogsRouter.delete('/:id', async (request, response) => {
+  if(!request.token) return response.status(401).json({ error: 'token missing' })
+  decodeToken = jwt.verify(request.token, process.env.SECRET)
+  const blog = await Blog.findById(request.params.id)
+  if(!blog)response.status(204).end()
+  if(decodeToken.id!==blog.user.toString()) 
+  return response.status(401).json({ error: `Token user Id ${decodeToken.id} and blog owner id ${blog.user.toString()} do not match` })
+
   await Blog.findByIdAndRemove(request.params.id)
   response.status(204).end()
 })
