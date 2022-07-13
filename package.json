@@ -27,6 +27,7 @@
     "cross-env": "^7.0.3",
     "jest": "^28.1.2",
     "nodemon": "^2.0.18",
+    "prettier": "2.7.1",
     "supertest": "^6.2.4"
   },
   "jest": {
