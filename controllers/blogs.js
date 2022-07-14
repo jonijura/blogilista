@@ -53,6 +53,15 @@ blogsRouter.delete("/:id", async (request, response) => {
   response.status(204).end();
 });
 
+blogsRouter.put("/:id/comment", async (request, response) => {
+  const blog = await Blog.findById(request.params.id);
+  console.log("request.body", request.body);
+  if (!blog) response.status(204).end();
+  blog.comments = blog.comments.concat(request.body.comment);
+  await blog.save();
+  response.status(201).json(blog);
+});
+
 blogsRouter.put("/:id", async (request, response) => {
   const blog = {
     title: request.body.title,
