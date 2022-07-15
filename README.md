@@ -10,4 +10,5 @@ Puuttuvaa/korjattavaa
 - kommenttien validointi, toistaiseksi voi lisätä tyhjiä kommentteja mielensä mukaan
 - tykkäykset ja kommentit voisivat liittyä käyttäjiin, toistaiseksi voi tykätä blogia niin monesti kuin haluaa
 - selaimen virkistäminen alihakemistoissa ei toimi
+- lisätyt blogit eivät päivity käyttäjien sivulle ennen selaimen virkistämistä
 - ...
